@@ -1,0 +1,62 @@
+services:
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-paperless
+    restart: unless-stopped
+
+    command:
+      - redis-server
+      - --save
+      - ""
+      - --appendonly
+      - "no"
+
+    networks:
+      - priv-service
+
+  paperless:
+
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.20.15
+    container_name: paperless
+    restart: unless-stopped
+
+    depends_on:
+      - redis
+
+    environment:
+      TZ: ${TZ}
+      PAPERLESS_URL: ${PAPERLESS_URL}
+      PAPERLESS_ADMIN_USER: ${PAPERLESS_ADMIN_USER}
+      PAPERLESS_ADMIN_PASSWORD: ${PAPERLESS_ADMIN_PASSWORD}
+      PAPERLESS_REDIS: ${PAPERLESS_REDIS}
+    
+      PAPERLESS_DBENGINE: ${PAPERLESS_DBENGINE}
+      PAPERLESS_DBHOST: ${PAPERLESS_DBHOST}
+      PAPERLESS_DBPORT: ${PAPERLESS_DBPORT}
+      PAPERLESS_DBNAME: ${PAPERLESS_DBNAME}
+      PAPERLESS_DBUSER: ${PAPERLESS_DBUSER}
+      PAPERLESS_DBPASS: ${PAPERLESS_DBPASS}
+    
+      PAPERLESS_OCR_LANGUAGE: ${PAPERLESS_OCR_LANGUAGE}
+      PAPERLESS_TIME_ZONE: ${PAPERLESS_TIME_ZONE}
+      PAPERLESS_CONSUMER_POLLING: ${PAPERLESS_CONSUMER_POLLING}
+      PAPERLESS_TASK_WORKERS: ${PAPERLESS_TASK_WORKERS}
+      PAPERLESS_THREADS_PER_WORKER: ${PAPERLESS_THREADS_PER_WORKER}
+      PAPERLESS_WEBSERVER_WORKERS: ${PAPERLESS_WEBSERVER_WORKERS}
+
+    ports:
+      - "8080:8000"
+
+    volumes:
+      - /opt/docker/paperless/data:/usr/src/paperless/data
+      - /opt/docker/paperless/media:/usr/src/paperless/media
+      - /opt/docker/paperless/export:/usr/src/paperless/export
+      - /opt/docker/paperless/consume:/usr/src/paperless/consume
+
+    networks:
+      - priv-service
+
+networks:
+  priv-service:
+    external: true
