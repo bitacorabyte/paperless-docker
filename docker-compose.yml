@@ -64,7 +64,7 @@ services:
       # 🚪 ENTRYPOINT → por dónde entra el tráfico
       - "traefik.http.routers.paperless.entrypoints=web"
       # 🔗 SERVICE → a dónde enviar el tráfico
-      - "traefik.http.services.paperless.loadbalancer.server.port=22300"
+      - "traefik.http.services.paperless.loadbalancer.server.port=8080"
 
 networks:
   priv-service:
