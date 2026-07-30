@@ -46,7 +46,7 @@ services:
       PAPERLESS_WEBSERVER_WORKERS: ${PAPERLESS_WEBSERVER_WORKERS}
 
     ports:
-      - "8080:8000"
+      - "8084:8000"
 
     volumes:
       - /opt/docker/paperless/data:/usr/src/paperless/data
