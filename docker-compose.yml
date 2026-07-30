@@ -59,15 +59,12 @@ services:
     
     labels:
       - "traefik.enable=true"
-
       # 🧠 ROUTER → cuándo aplicar la regla
-      - "traefik.http.routers.bookstack.rule=Host(`bookstack.home.arpa`)"
-
+      - "traefik.http.routers.paperless.rule=Host(`paperless.home.arpa`)"
       # 🚪 ENTRYPOINT → por dónde entra el tráfico
-      - "traefik.http.routers.bookstack.entrypoints=web"
-
+      - "traefik.http.routers.paperless.entrypoints=web"
       # 🔗 SERVICE → a dónde enviar el tráfico
-      - "traefik.http.services.bookstack.loadbalancer.server.port=22300"
+      - "traefik.http.services.paperless.loadbalancer.server.port=22300"
 
 networks:
   priv-service:
