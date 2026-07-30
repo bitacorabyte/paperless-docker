@@ -60,11 +60,11 @@ services:
     
     labels:
       - "traefik.enable=true"
-      # 🧠 ROUTER → cuándo aplicar la regla
+      # ROUTER → cuándo aplicar la regla
       - "traefik.http.routers.paperless.rule=Host(`paperless.home.arpa`)"
-      # 🚪 ENTRYPOINT → por dónde entra el tráfico
+      # ENTRYPOINT → por dónde entra el tráfico
       - "traefik.http.routers.paperless.entrypoints=web"
-      # 🔗 SERVICE → a dónde enviar el tráfico
+      # SERVICE → a dónde enviar el tráfico
       - "traefik.http.services.paperless.loadbalancer.server.port=8000"
 
 networks:
