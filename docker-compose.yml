@@ -70,3 +70,5 @@ services:
 networks:
   priv-service:
     external: true
+  traefik:
+    external: true
